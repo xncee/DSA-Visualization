@@ -23,7 +23,7 @@ public class Test {
         for (int[][] test: testCases) {
             int[] input = test[0];
             int[] output = test[1];
-            System.out.println("array = "+Arrays.toString(input));
+            //System.out.println("array = "+Arrays.toString(input));
 
             OrderedArray o1 = new OrderedArray(Arrays.copyOf(input, input.length));
             o1.bubble1();
