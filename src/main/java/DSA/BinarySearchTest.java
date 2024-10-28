@@ -1,8 +1,7 @@
-package org.example;
+package DSA;
 
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.ServiceLoader;
 
 public class BinarySearchTest implements Color {
     static int[][][] testCases = {
