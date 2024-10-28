@@ -17,13 +17,12 @@ public class BubbleSortTest {
             { {4, 4, 4, 4, 4}, {4, 4, 4, 4, 4} }, // 11. All Elements the Same
     };
 
-
     public static void main(String[] args) {
         int n = 1;
         for (int[][] test: testCases) {
             int[] input = test[0];
             int[] output = test[1];
-
+            OrderedArray.SLEEP = 0;
             OrderedArray o1 = new OrderedArray(Arrays.copyOf(input, input.length));
             o1.bubble1();
             OrderedArray o2 = new OrderedArray(Arrays.copyOf(input, input.length));
@@ -32,6 +31,7 @@ public class BubbleSortTest {
             o3.bubble3();
             OrderedArray o4 = new OrderedArray(Arrays.copyOf(input, input.length));
             o4.bubble4();
+
             System.out.println("\nTEST-"+(n++)+": "+(Arrays.equals(output, o4.arr)));
             System.out.println("======================");
         }
