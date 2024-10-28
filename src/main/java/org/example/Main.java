@@ -1,28 +1,63 @@
 package org.example;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class Main {
 
 
     public static void main(String[] args) {
-        //        UnorderedArray a = new UnorderedArray(10);
-        //        a.addFirst(10);
-        //        a.addFirst(5);
-        //        a.addFirst(50);
-        //        a.addFirst(90);
-        //        a.addLast(99);
-        //        a.delLast();
-        //        a.addLast(88);
-        //        a.delFirst();
-        //        a.addIn(0, 3);
-        //        a.addIn(4, 3);
-        //        a.delIn(4);
-        //        System.out.println(Arrays.toString(a.arr));
-        OrderedArray o = new OrderedArray(new int[] {100, 5, -1, 50, 20, 0, -50, 75, 25, 10});
-        o.SLEEP = 0;
-        o.bubble4();
+        int[] unsortedArray = generateUnsortedArray(20);
 
-        System.out.println(o.binarySearch(5));
+        // Print the generated unsorted array
+        System.out.println("Unsorted Array: " + Arrays.toString(unsortedArray));
+    }
+
+    // Method to generate an unsorted array of a specified length
+    private static int[] generateUnsortedArray(int size) {
+        Random random = new Random();
+        int[] arr = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            arr[i] = random.nextInt(1000) + 1; // Random values between 1 and 1000
+        }
+
+        return arr;
     }
 }
+//public class Main {
+//    public static void main(String[] args) {
+//        int[] unsortedArray = generateUnsortedArray(20);
+//
+//        // Print the generated unsorted array with a specific width per line
+//        printArrayWithWidth(unsortedArray, 10); // Print 10 elements per line
+//    }
+//
+//    private static int[] generateUnsortedArray(int size) {
+//        Random random = new Random();
+//        int[] arr = new int[size];
+//
+//        for (int i = 0; i < size; i++) {
+//            arr[i] = random.nextInt(1000) + 1; // Random values between 1 and 1000
+//        }
+//
+//        return arr;
+//    }
+//
+//    private static void printArrayWithWidth(int[] array, int width) {
+//        for (int i = 0; i < array.length; i++) {
+//            // Print the element with a width of 5 characters
+//            System.out.printf("%5d ", array[i]); // Adjust the width here if needed
+//
+//            // Print a newline after every `width` elements
+//            if ((i + 1) % width == 0) {
+//                System.out.println();
+//            }
+//        }
+//
+//        // Print a new line at the end if the last line is not complete
+//        if (array.length % width != 0) {
+//            System.out.println();
+//        }
+//    }
+//}

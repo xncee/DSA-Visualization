@@ -1,5 +1,6 @@
 package org.example;
 
+import java.sql.SQLOutput;
 import java.util.Arrays;
 
 public class OrderedArray implements Color {
@@ -31,7 +32,7 @@ public class OrderedArray implements Color {
         return size==0;
     }
 
-    public void sleepFor(double seconds) {
+    public static void sleepFor(double seconds) {
         try {
             Thread.sleep((long) (seconds*1000));
         } catch (InterruptedException e) {
@@ -44,21 +45,33 @@ public class OrderedArray implements Color {
             String temp = r[i];
             r[i] = String.valueOf(arr[i]);
 
-            if (temp!=null && temp.contains(GREEN))
-                setColor(i, GREEN);
+            if (temp!=null && temp.contains(GREEN_BACKGROUND))
+                setColor(i, GREEN_BACKGROUND);
         }
     }
 
+    private static void printArrayWithWidth(String[] array, int width) {
+        System.out.print("\r"+Arrays.toString(array));
+    }
+
+    public void resetColor() {
+        for (int i=0; i<arr.length; i++) {
+            r[i] = String.valueOf(arr[i]);
+        }
+    }
     public void setColor(int idx, String clr) {
-        if (r[idx].contains(GREEN)) {
+        int width = 7;
+        if (r[idx].contains(GREEN_BACKGROUND)) {
             String[] copy = Arrays.copyOf(r, r.length);
             copy[idx] =  clr+copy[idx]+RESET;
-            System.out.print("\r"+Arrays.toString(copy));
+            //System.out.print("\r"+Arrays.toString(copy));
+            printArrayWithWidth(copy, width);
             return;
         }
 
         r[idx] = clr+arr[idx]+RESET;
-        System.out.print("\r"+Arrays.toString(r));
+        //System.out.print("\r"+Arrays.toString(r));
+        printArrayWithWidth(r, width);
     }
 
     public void showEffect(int idx1, int idx2, String clr) {
@@ -81,13 +94,12 @@ public class OrderedArray implements Color {
                     arr[j+1] = temp;
                     updateStrArray();
                 }
-                else {
-                    showEffect(j, j+1, CYAN);
-                }
                 setColor(j, RESET);
             }
-            setColor(last, GREEN);
+            setColor(last, GREEN_BACKGROUND);
         }
+        setColor(0, size-1, GREEN_BACKGROUND);
+
         System.out.println();
         System.out.println("(bubble1) c="+c);
     }
@@ -112,14 +124,12 @@ public class OrderedArray implements Color {
                     arr[j+1] = temp;
                     updateStrArray();
                 }
-                else {
-                    showEffect(j, j+1, CYAN);
-                }
 
                 setColor(j, RESET);
             }
-            setColor(last, GREEN);
+            setColor(last, GREEN_BACKGROUND);
         }
+        setColor(0, size-1, GREEN_BACKGROUND);
 
         System.out.println();
         System.out.println("(bubble2) c="+c);
@@ -142,14 +152,14 @@ public class OrderedArray implements Color {
                     swapped = true;
                     updateStrArray();
                 }
-                else {
-                    showEffect(j, j+1, CYAN);
-                }
                 setColor(j, RESET);
             }
-            setColor(last, GREEN);
+            setColor(last, GREEN_BACKGROUND);
 
-            if (!swapped) break; // <--
+            if (!swapped) {
+                setColor(0, last-1, GREEN_BACKGROUND);
+                break; // <--
+            }
         }
 
         System.out.println();
@@ -176,13 +186,16 @@ public class OrderedArray implements Color {
                     lastSwapped = j; // <--
                     updateStrArray();
                 }
-                else {
-                    showEffect(j, j+1, CYAN);
-                }
                 setColor(j, RESET);
+                setColor(j+1, RESET);
             }
-            setColor(last, GREEN);
-            if (max==lastSwapped) break; // you can either use this or swapped boolean flag
+            setColor(last, GREEN_BACKGROUND);
+
+            // you can either use this or swapped boolean flag
+            if (max==lastSwapped) {
+                setColor(0, last-1, GREEN_BACKGROUND);
+                break;
+            }
             //if (!swapped) break;
             max = lastSwapped; // <--
         }
@@ -191,25 +204,57 @@ public class OrderedArray implements Color {
         System.out.println("(bubble4) c="+c);
     }
 
+    public void setColor(int from, int to, String clr) {
+        for (int i=from; i<=to; i++) {
+            setColor(i, clr);
+        }
+    }
+
+    public void setValue(int idx, String value) {
+        r[idx] = value;
+        printArrayWithWidth(r, 0);
+    }
     public int binarySearch(int e) {
         int low = 0;
         int high = size-1;
-
+        resetColor();
         while (low<=high) {
             //int mid = (high+low) / 2;
             // integers have a fixed size (e.g., 32 bits). If the sum of two large integers exceeds the maximum value that can be represented by that data type, it results in an overflow, causing unexpected behavior.
             int mid = low+(high-low)/2; // to avoid Integer Overflow
             // using long data type would also reduce the risk of integer overflow
+            setColor(low, high, YELLOW);
+            sleepFor(1);
+            setColor(mid, CYAN_BACKGROUND);
+            sleepFor(SLEEP);
+//            if (arr[low]==e) {
+//                // this is needed in cases where there are redundant elements [4, 4, 4, 4, 4]
+//                setColor(low, GREEN);
+//                return low;
+//            }
+            if (arr[mid]==e) {
+                resetColor();
+                setColor(mid, GREEN_BACKGROUND);
+                return mid;
+            }
 
-            if (arr[low]==e) return low; // this is needed in cases where there are redundant elements [4, 4, 4, 4, 4]
-            if (arr[mid]==e) return mid;
-
+            int tempLow = low;
+            int tempHigh = high;
             if (arr[mid] > e) {
                 high = mid-1;
+                setValue(mid, RED+"<--"+RESET);
+                sleepFor(SLEEP);
+                setValue(mid, String.valueOf(mid));
+                setColor(mid, RESET);
             }
             else {
                 low = mid+1;
+                setValue(mid, RED+"-->"+RESET);
+                sleepFor(SLEEP);
+                setValue(mid, String.valueOf(mid));
+                setColor(mid, RESET);
             }
+            setColor(tempLow, tempHigh, RESET);
         }
 
         return -1;
