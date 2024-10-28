@@ -1,6 +1,5 @@
 package org.example;
 
-import java.sql.SQLOutput;
 import java.util.Arrays;
 
 public class OrderedArray implements Color {
