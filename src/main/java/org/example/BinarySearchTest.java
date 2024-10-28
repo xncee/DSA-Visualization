@@ -21,18 +21,18 @@ public class BinarySearchTest implements Color {
         for (int[][] test: testCases) {
             int[] arr = test[0];
             int input = test[1][0];
-            int output = test[2][0];
+            int expected = test[2][0];
 
             OrderedArray o = new OrderedArray(Arrays.copyOf(arr, arr.length));
             o.SLEEP = 0.1;
             o.bubble4();
 
-            int idx = o.binarySearch(input);
+            int output = o.binarySearch(input);
             System.out.println("target: "+input);
-            System.out.println("output: "+idx);
-            System.out.println("expected: "+output);
+            System.out.println("output: "+output);
+            System.out.println("expected: "+expected);
 
-            String result = String.valueOf(idx==output);
+            String result = String.valueOf(output==expected);
             if (result.equals("true"))
                 result = GREEN+result+RESET;
             else
