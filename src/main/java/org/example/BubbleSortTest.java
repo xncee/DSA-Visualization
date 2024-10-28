@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Arrays;
 
-public class Test {
+public class BubbleSortTest {
     static int[][][] testCases = {
             { {1, 2, 3, 5, 4, 6, 7, 8, 9}, {1, 2, 3, 4, 5, 6, 7, 8, 9} }, // 1. Nearly Sorted Array
             { {5, 1, 4, 2, 8}, {1, 2, 4, 5, 8} }, // 2. Basic Unsorted Array
@@ -23,7 +23,6 @@ public class Test {
         for (int[][] test: testCases) {
             int[] input = test[0];
             int[] output = test[1];
-            //System.out.println("array = "+Arrays.toString(input));
 
             OrderedArray o1 = new OrderedArray(Arrays.copyOf(input, input.length));
             o1.bubble1();
