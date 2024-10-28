@@ -1,4 +1,4 @@
-package DSA;
+package design;
 public interface Color {
     // ANSI COLORS
     String RESET = "\033[0m";

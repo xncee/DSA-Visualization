@@ -1,5 +1,7 @@
 package DSA;
 
+import design.Color;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
