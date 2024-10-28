@@ -169,41 +169,37 @@ public class OrderedArray implements Color {
     public void bubble4() {
         int c = 0;
         int max = size-1;
-        int lastSwapped = size-1;
-        // keeping track of last swapped element to reduce iterations.
-        for (int i=0; i<size; i++) {
-            //boolean swapped = false;
+        int lastSwapped = max;
+
+        for (int i=0; i<size; i++) { // i=1
+            boolean swapped = false;
             int last = size-1-i;
-            for (int j=0; j<max; j++) { // <--
+            for (int j=0; j<max; j++) {
                 c++;
                 showEffect(j, j+1, YELLOW);
-                if (arr[j] > arr[j+1]) {
+                if (arr[j]>arr[j+1]) {
                     showEffect(j, j+1, RED);
-                    int temp = arr[j];
+                    int t = arr[j];
                     arr[j] = arr[j+1];
-                    arr[j+1] = temp;
-                    //swapped = true;
-                    lastSwapped = j; // <--
+                    arr[j+1] = t;
+                    lastSwapped = j;
+                    swapped = true;
                     updateStrArray();
                 }
                 setColor(j, RESET);
-                setColor(j+1, RESET);
             }
             setColor(last, GREEN_BACKGROUND);
 
-            // you can either use this or swapped boolean flag
-            if (max==lastSwapped) {
+            if (!swapped) {
                 setColor(0, last-1, GREEN_BACKGROUND);
-                break;
+                break; // <--
             }
-            //if (!swapped) break;
-            max = lastSwapped; // <--
+            max = lastSwapped;
         }
 
         System.out.println();
         System.out.println("(bubble4) c="+c);
     }
-
     public void setColor(int from, int to, String clr) {
         for (int i=from; i<=to; i++) {
             setColor(i, clr);
