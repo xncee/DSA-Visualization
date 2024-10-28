@@ -7,7 +7,7 @@ public class OrderedArray implements Color {
     int size;
     int[] arr;
     String[] r;
-    double SLEEP = 0.5;
+    static double SLEEP = 0.8;
 
     public OrderedArray(int cap) {
         this.cap = cap;
@@ -68,7 +68,7 @@ public class OrderedArray implements Color {
     }
 
     public void bubble1() {
-        int c = 0; // c =
+        int c = 0; // Represents the number of comparisons made
         for (int i=0; i<size; i++) {
             int last = size-1-i;
             for (int j=0; j<size-1; j++) {
@@ -191,5 +191,27 @@ public class OrderedArray implements Color {
         System.out.println("(bubble4) c="+c);
     }
 
+    public int binarySearch(int e) {
+        int low = 0;
+        int high = size-1;
 
+        while (low<=high) {
+            //int mid = (high+low) / 2;
+            // integers have a fixed size (e.g., 32 bits). If the sum of two large integers exceeds the maximum value that can be represented by that data type, it results in an overflow, causing unexpected behavior.
+            int mid = low+(high-low)/2; // to avoid Integer Overflow
+            // using long data type would also reduce the risk of integer overflow
+
+            if (arr[low]==e) return low; // this is needed in cases where there are redundant elements [4, 4, 4, 4, 4]
+            if (arr[mid]==e) return mid;
+
+            if (arr[mid] > e) {
+                high = mid-1;
+            }
+            else {
+                low = mid+1;
+            }
+        }
+
+        return -1;
+    }
 }
