@@ -49,7 +49,7 @@ public class OrderedArray implements Color {
         }
     }
 
-    private static void printArrayWithWidth(String[] array, int width) {
+    private static void printArray(String[] array) {
         System.out.print("\r"+Arrays.toString(array));
     }
 
@@ -63,14 +63,12 @@ public class OrderedArray implements Color {
         if (r[idx].contains(GREEN_BACKGROUND)) {
             String[] copy = Arrays.copyOf(r, r.length);
             copy[idx] =  clr+copy[idx]+RESET;
-            //System.out.print("\r"+Arrays.toString(copy));
-            printArrayWithWidth(copy, width);
+            printArray(copy);
             return;
         }
 
         r[idx] = clr+arr[idx]+RESET;
-        //System.out.print("\r"+Arrays.toString(r));
-        printArrayWithWidth(r, width);
+        printArray(r);
     }
 
     public void showEffect(int idx1, int idx2, String clr) {
@@ -207,7 +205,7 @@ public class OrderedArray implements Color {
 
     public void setValue(int idx, String value) {
         r[idx] = value;
-        printArrayWithWidth(r, 0);
+        printArray(r);
     }
     public int binarySearch(int e) {
         int low = 0;
@@ -222,11 +220,11 @@ public class OrderedArray implements Color {
             sleepFor(1);
             setColor(mid, CYAN_BACKGROUND);
             sleepFor(SLEEP);
-//            if (arr[low]==e) {
-//                // this is needed in cases where there are redundant elements [4, 4, 4, 4, 4]
-//                setColor(low, GREEN);
-//                return low;
-//            }
+            if (arr[low]==e) {
+                // this is needed in cases where there are redundant elements [4, 4, 4, 4, 4]
+                setColor(low, GREEN);
+                return low;
+            }
             if (arr[mid]==e) {
                 resetColor();
                 setColor(mid, GREEN_BACKGROUND);
