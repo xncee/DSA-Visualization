@@ -1,4 +1,6 @@
-package DSA;
+package DSA.TESTS;
+
+import DSA.OrderedArray;
 
 import java.util.Arrays;
 
@@ -22,7 +24,7 @@ public class BubbleSortTest {
         for (int[][] test: testCases) {
             int[] input = test[0];
             int[] output = test[1];
-            OrderedArray.SLEEP = 0;
+            OrderedArray.SLEEP = 1;
             OrderedArray o1 = new OrderedArray(Arrays.copyOf(input, input.length));
             o1.bubble1();
             OrderedArray o2 = new OrderedArray(Arrays.copyOf(input, input.length));
