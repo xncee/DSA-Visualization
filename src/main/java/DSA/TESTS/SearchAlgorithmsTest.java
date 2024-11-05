@@ -1,16 +1,17 @@
-package DSA;
+package DSA.TESTS;
 
+import DSA.OrderedArray;
 import design.Color;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class BinarySearchTest implements Color {
+public class SearchAlgorithmsTest implements Color {
     static int[][][] testCases = {
             {{1, 3, 5, 2, 4, 6, 9, 7, 8}, {5}, {4}},
-            {{729, 361, 881, 274, 849, 931, 837, 456, 434, 215, 2, 700, 572, 342, 556, 509, 793, 465, 102, 279, 269, 296, 297, 457, 32, 612, 776, 960, 159, 146, 168, 397, 808, 198, 213, 327, 876, 25, 216, 647, 119, 681, 421, 479, 858, 836, 848, 885, 650, 105, 95, 914, 209, 131, 75, 457, 691, 162, 368, 558, 395, 560, 444, 189, 995, 477, 612, 284, 451, 711, 826, 998, 64, 457, 627, 413, 286, 743, 773, 163, 840, 443, 229, 733, 676, 807, 182, 557, 660, 304, 38, 426, 903, 356, 298, 46, 950, 544, 738, 388}
-                    , {560}
-                    , {61}},
+//            {{729, 361, 881, 274, 849, 931, 837, 456, 434, 215, 2, 700, 572, 342, 556, 509, 793, 465, 102, 279, 269, 296, 297, 457, 32, 612, 776, 960, 159, 146, 168, 397, 808, 198, 213, 327, 876, 25, 216, 647, 119, 681, 421, 479, 858, 836, 848, 885, 650, 105, 95, 914, 209, 131, 75, 457, 691, 162, 368, 558, 395, 560, 444, 189, 995, 477, 612, 284, 451, 711, 826, 998, 64, 457, 627, 413, 286, 743, 773, 163, 840, 443, 229, 733, 676, 807, 182, 557, 660, 304, 38, 426, 903, 356, 298, 46, 950, 544, 738, 388}
+//                    , {560}
+//                    , {61}},
             {{425, 262, 487, 69, 632, 454, 378, 357, 792, 981, 723, 471, 200, 807, 643, 51, 534, 991, 374, 163}
                     , {378}
                     , {7}
@@ -28,7 +29,7 @@ public class BinarySearchTest implements Color {
     static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
         int n = 1;
-        double SLEEP = 1.5;
+        double SLEEP = 0.5;
         System.out.println("Enter to Start: ");
         sc.nextLine();
         for (int[][] test: testCases) {
@@ -44,6 +45,14 @@ public class BinarySearchTest implements Color {
             System.out.print(", "+GREEN_BACKGROUND+"CHECKED"+RESET+")");
             System.out.println();
             o.bubble4();
+
+
+            System.out.print("Sequential Search: ");
+            System.out.print("("+YELLOW+"CURRENT"+RESET);
+            System.out.print(", "+GREEN_BACKGROUND+"FOUND"+RESET+")");
+            int r = o.sequentialSearch(374);
+            System.out.println();
+            System.out.println("output: "+r);
 
             System.out.print("Binary Search: ");
             System.out.print("("+YELLOW+"SEARCH RANGE"+RESET);
