@@ -7,9 +7,9 @@ import java.util.Arrays;
 public class OrderedArray implements Color {
     int cap;
     int size;
-    int[] arr;
+    public int[] arr;
     String[] r;
-    static double SLEEP = 0.8;
+    public static double SLEEP = 0.8;
 
     public OrderedArray(int cap) {
         this.cap = cap;
@@ -73,11 +73,23 @@ public class OrderedArray implements Color {
         printArray(r);
     }
 
+    public void setColor(int from, int to, String clr) {
+        for (int i=from; i<=to; i++) {
+            setColor(i, clr);
+        }
+    }
+
+    public void setValue(int idx, String value) {
+        r[idx] = value;
+        printArray(r);
+    }
+
     public void showEffect(int idx1, int idx2, String clr) {
         setColor(idx1, clr);
         setColor(idx2, clr);
         sleepFor(SLEEP);
     }
+
 
     public void bubble1() {
         int c = 0; // Represents the number of comparisons made
@@ -199,16 +211,22 @@ public class OrderedArray implements Color {
         System.out.println();
         System.out.println("(bubble4) c="+c);
     }
-    public void setColor(int from, int to, String clr) {
-        for (int i=from; i<=to; i++) {
-            setColor(i, clr);
+
+    public int sequentialSearch(int e) {
+        for (int i=0; i<size; i++) {
+            setColor(i, YELLOW);
+            sleepFor(SLEEP);
+            if (arr[i]==e) {
+                setColor(i, GREEN_BACKGROUND);
+                return i;
+            }
+
+            resetColor();
         }
+
+        return -1;
     }
 
-    public void setValue(int idx, String value) {
-        r[idx] = value;
-        printArray(r);
-    }
     public int binarySearch(int e) {
         int low = 0;
         int high = size-1;
@@ -224,7 +242,8 @@ public class OrderedArray implements Color {
             sleepFor(SLEEP);
             if (arr[low]==e) {
                 // this is needed in cases where there are redundant elements [4, 4, 4, 4, 4]
-                setColor(low, GREEN);
+                resetColor();
+                setColor(low, GREEN_BACKGROUND);
                 return low;
             }
             if (arr[mid]==e) {

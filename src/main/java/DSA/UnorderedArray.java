@@ -101,4 +101,12 @@ public class UnorderedArray {
 
         size--;
     }
+
+    public int sequentialSearch(int value) {
+        for (int i=0; i<size; i++) {
+            if (arr[i]==value) return i;
+        }
+
+        return -1;
+    }
 }
