@@ -44,10 +44,10 @@ public class CirQueue {
         }
 
         int e = arr[front];
-        if (front == cap-1)
-            front = -1;
+        front++;
+        if (front == cap)
+            front = 0;
 
-        front ++;
         size--;
         return e;
     }
