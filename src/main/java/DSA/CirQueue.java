@@ -29,10 +29,10 @@ public class CirQueue {
             return;
         }
 
-        if (rear == cap-1)
-            rear = -1;
-
         rear++;
+        if (rear == cap)
+            rear = 0;
+
         arr[rear] = e;
         size++;
     }
