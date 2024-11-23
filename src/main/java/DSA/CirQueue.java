@@ -1,19 +1,18 @@
 package DSA;
 
-public class Queue {
+public class CirQueue {
     int[] arr;
     int cap;
     int size = 0;
     int front = 0;
     int rear = -1;
 
-    public Queue(int cap) {
+    public CirQueue(int cap) {
         this.cap = cap;
         arr = new int[cap];
     }
 
     public int length() {
-        //return rear-front+1;
         return size;
     }
     public boolean isFull() {
@@ -26,9 +25,13 @@ public class Queue {
 
     public void enqueue(int e) {
         if (isFull()) {
-            System.out.println("Queue is full!");
+            System.out.println("CirQueue is full!");
             return;
         }
+
+        if (rear == cap-1)
+            rear = -1;
+
         rear++;
         arr[rear] = e;
         size++;
@@ -36,16 +39,22 @@ public class Queue {
 
     public int dequeue() {
         if (isEmpty()) {
-            System.out.println("Queue is empty!");
+            System.out.println("CirQueue is empty!");
             return -9999;
         }
+
+        int e = arr[front];
+        if (front == cap-1)
+            front = -1;
+
+        front ++;
         size--;
-        return arr[front++];
+        return e;
     }
 
     public int first() {
         if (isEmpty()) {
-            System.out.println("Queue is empty!");
+            System.out.println("CirQueue is empty!");
             return -9999;
         }
 
