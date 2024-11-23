@@ -1,9 +1,9 @@
 package DSA;
 
 public class Stack {
-    int[] arr;
-    int cap;
-    int top;
+    private int[] arr;
+    private int cap;
+    private int top = -1;
 
     public Stack(int cap) {
         this.cap = cap;
@@ -40,7 +40,7 @@ public class Stack {
         return arr[top--];
     }
 
-    public int peak() {
+    public int peek() {
         if (isEmpty()) {
             System.out.println("Stack is empty.");
             return -9999;
