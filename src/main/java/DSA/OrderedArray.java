@@ -90,9 +90,14 @@ public class OrderedArray implements Color {
         sleepFor(SLEEP);
     }
 
-
+    // The methods bubble1, bubble2, bubble3, and bubble4 represent progressively optimized versions of the Bubble Sort algorithm.
+    // Each method tracks the number of comparisons (c) to demonstrate the efficiency gained with each enhancement.
     public void bubble1() {
-        int c = 0; // Represents the number of comparisons made
+        // Inner Loop Condition: Always iterates from 0 to size - 1.
+        // Performs unnecessary comparisons even when the largest elements are already sorted at the end.
+        // Best-case time complexity: O(n^2)
+        // Worst-case time complexity: O(n^2)
+        int c = 0;
         for (int i=0; i<size; i++) {
             int last = size-1-i;
             for (int j=0; j<size-1; j++) {
@@ -116,6 +121,11 @@ public class OrderedArray implements Color {
     }
 
     public void bubble2() {
+        // Inner Loop Condition: Limits the range to size - 1 - i to skip already sorted elements.
+        // Reduces comparisons by excluding the sorted portion of the array.
+        // Best-case time complexity: O(n^2)
+        // Worst-case time complexity: O(n^2)
+        // Comparisons: n*(n-1)/2 (approximately half of bubble1).
         int c = 0;
         for (int i=0; i<size; i++) {
             /*
@@ -147,7 +157,11 @@ public class OrderedArray implements Color {
     }
 
     public void bubble3() {
-        // j<size-1-i & swapped boolean flag
+        // Swapped Flag: Introduced to exit early if the array becomes sorted before completing all passes.
+        // Inner Loop Condition: Same as bubble2.
+        // Avoids unnecessary passes when no swaps occur in an iteration, further reducing comparisons.
+        // Best-case time complexity: O(n) when the array is already sorted (early exit).
+        // Worst-case time complexity: O(n^2)
         int c = 0;
         for (int i=0; i<size; i++) {
             boolean swapped = false; // <--
@@ -178,14 +192,18 @@ public class OrderedArray implements Color {
     }
 
     public void bubble4() {
+        // Instead of iterating up to size - 1 - i, it tracks the last index where a swap occurred (lastSwapped).
+        // Limits comparisons to this range, reducing redundant comparisons even further.
+        // Best-case time complexity: O(n) (early exit).
+        // Worst-case time complexity: O(n^2), though with fewer comparisons compared to bubble3.
         int c = 0;
-        int max = size-1;
-        int lastSwapped = max;
+        int end = size-1;
+        int lastSwapped = end;
 
-        for (int i=0; i<size; i++) { // i=1
+        for (int i=0; i<size; i++) {
             boolean swapped = false;
             int last = size-1-i;
-            for (int j=0; j<max; j++) {
+            for (int j=0; j<end; j++) {
                 c++;
                 showEffect(j, j+1, YELLOW);
                 if (arr[j]>arr[j+1]) {
@@ -205,7 +223,7 @@ public class OrderedArray implements Color {
                 setColor(0, last-1, GREEN_BACKGROUND);
                 break; // <--
             }
-            max = lastSwapped;
+            end = lastSwapped;
         }
 
         System.out.println();
@@ -232,7 +250,7 @@ public class OrderedArray implements Color {
         int high = size-1;
         resetColor();
         while (low<=high) {
-            //int mid = (high+low) / 2;
+            // int mid = (high+low) / 2;
             // integers have a fixed size (e.g., 32 bits). If the sum of two large integers exceeds the maximum value that can be represented by that data type, it results in an overflow, causing unexpected behavior.
             int mid = low+(high-low)/2; // to avoid Integer Overflow
             // using long data type would also reduce the risk of integer overflow
@@ -252,8 +270,9 @@ public class OrderedArray implements Color {
                 return mid;
             }
 
-            int tempLow = low;
-            int tempHigh = high;
+            // Those are used for visualization:
+            int tempLow = low; // <--
+            int tempHigh = high; // <--
             if (arr[mid] > e) {
                 high = mid-1;
                 setValue(mid, RED+"<--"+RESET);
@@ -272,5 +291,60 @@ public class OrderedArray implements Color {
         }
 
         return -1;
+    }
+
+    public static int[] binarySearchOnMatrix(int[][] matrix, int target) {
+        // This method assumes that the matrix is sorted.
+        // Time Complexity: O(log(n*m))
+        // Space Complexity: O(1)
+        int n = matrix.length; // rows
+        int m = matrix[0].length; // cols
+
+        int first = 0;
+        int last = n*m-1;
+
+        while (first <= last) {
+            int mid = first + (last-first)/2; // Prevent integer overflow
+            int r = mid / m;
+            int c = mid % m;
+            int midValue = matrix[r][c];
+
+            if (midValue == target) {
+                return new int[] {r, c}; // Target found
+            } else if (midValue > target) {
+                last = mid - 1;
+            } else {
+                first = mid + 1;
+            }
+        }
+
+        return new int[] {-1, -1}; // Target not found
+    }
+
+    public static int[] staircaseSearchOnMatrix(int[][] matrix, int target) {
+        // This method assumes that the matrix is sorted.
+        // Time Complexity: O(n+m)
+        // Space Complexity: O(1)
+        // Efficient for matrices sorted row-wise and column-wise.
+        // Best suited for scenarios where the matrix is not treated as a flattened array.
+        int n = matrix.length; // rows
+        int m = matrix[0].length; // cols
+
+        int row = 0;
+        int col = m-1;
+
+        while (row < n && col >= 0) {
+            if (matrix[row][col] == target) {
+                return new int[] {row, col}; // Target found
+            }
+            else if (matrix[row][col] > target) {
+                col--; // move left to reduce the value.
+            }
+            else {
+                row++; // move down to increase the value.
+            }
+        }
+
+        return new int[] {-1, -1}; // Target not found
     }
 }
