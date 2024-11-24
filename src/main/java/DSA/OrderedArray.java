@@ -372,4 +372,35 @@ public class OrderedArray implements Color {
 
         return new int[] {-1, -1}; // Target not found
     }
+
+    public static int[] mergeTwoSortedArrays(int[] arr1, int[] arr2) {
+        // Time Complexity: O(n+m)
+        // Space Complexity: O(n+m)
+        int k = 0;
+        int[] merged = new int[arr1.length+arr2.length];
+
+        int i = 0;
+        int j = 0;
+        // Add minimum elements first
+        while (i < arr1.length && j < arr2.length) {
+            if (arr1[i] <= arr2[j]) {
+                merged[k++] = arr1[i++];
+            }
+            else {
+                merged[k++] = arr2[j++];
+            }
+        }
+        // if i or j exceeds the limit, the previous loop will break and there will be left elements in one the two arrays.
+
+        // Add remaining elements from arr1
+        while (i < arr1.length) {
+            merged[k++] = arr1[i++];
+        }
+        // Add remaining elements from arr2
+        while (j < arr2.length) {
+            merged[k++] = arr2[j++];
+        }
+
+        return merged;
+    }
 }
