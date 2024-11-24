@@ -293,6 +293,31 @@ public class OrderedArray implements Color {
         return -1;
     }
 
+    public static void bubbleSortOnMatrix(int[][] matrix, int target) {
+        // Time Complexity: O((n*m)^2)
+        // Space Complexity: O(1)
+        int n = matrix.length; // rows
+        int m = matrix[0].length; // cols
+
+        int end = n*m-1;
+        int lastSwapped = end;
+        for (int i=0; i<n*m; i++) {
+            boolean swapped = false;
+            for (int j=0; j<end; j++) {
+                if (matrix[j / m][j % m] > matrix[(j+1) / m][(j+1) % m]) {
+                    int temp = matrix[j / m][j % m];
+                    matrix[j / m][j % m] = matrix[(j+1) / m][(j+1) % m];
+                    matrix[(j+1) / m][(j+1) % m] = temp;
+
+                    swapped = true;
+                    lastSwapped = j;
+                }
+            }
+
+            if (!swapped) break;
+            end = lastSwapped;
+        }
+    }
     public static int[] binarySearchOnMatrix(int[][] matrix, int target) {
         // This method assumes that the matrix is sorted.
         // Time Complexity: O(log(n*m))
