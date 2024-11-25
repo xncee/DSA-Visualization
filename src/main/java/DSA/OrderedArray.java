@@ -442,7 +442,7 @@ public class OrderedArray implements Color {
 
         // Time Complexity: O(n*logn)
         // Space Complexity: O(n)
-        if (left > right) return;
+        if (left >= right) return; // Base case (stop recursion)
 
         int mid = left+(right-left)/2;
         // Recursive calls
