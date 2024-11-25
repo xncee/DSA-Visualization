@@ -452,4 +452,19 @@ public class OrderedArray implements Color {
         // Merge the sorted halves
         merge(arr, left, mid, right);
     }
+
+    public void selectionSort(int[] arr) {
+        for (int i=0; i < arr.length; i++) {
+            int min = i; // assume the current element is the minimum.
+            for (int j=i+1; j < arr.length; j++) {
+                // if a smaller element is found, update min
+                if (arr[j] <= arr[min])
+                    min = j;
+            }
+            // swap current with minimum element
+            int temp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = temp;
+        }
+    }
 }
