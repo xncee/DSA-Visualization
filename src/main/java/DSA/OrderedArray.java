@@ -436,6 +436,12 @@ public class OrderedArray implements Color {
     }
     // {10, 5, -1, 4, 0, 6, 9, 0}
     public void mergeSort(int[] arr, int left, int right) {
+        // dividing takes O(logn).
+        // merging takes O(n) time at each level of recursion.
+        // (where n is the size of the array)
+
+        // Time Complexity: O(n*logn)
+        // Space Complexity: O(n)
         if (left > right) return;
 
         int mid = left+(right-left)/2;
