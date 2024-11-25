@@ -403,4 +403,47 @@ public class OrderedArray implements Color {
 
         return merged;
     }
+
+    private void merge(int[] arr, int left, int mid, int right) {
+        int n1 = mid - left + 1; // Size of left subarray
+        int n2 = right - mid;   // Size of right subarray
+        int[] leftArr = new int[n1];
+        int[] rightArr = new int[n2];
+
+        System.arraycopy(arr, left, leftArr, 0, n1);
+        System.arraycopy(arr, mid+1, rightArr, 0, n2);
+
+        // Merge the two sorted subarrays
+        int k = left;
+        int i = 0;
+        int j = 0;
+        while (i < leftArr.length && j < rightArr.length) {
+            if (leftArr[i] <= rightArr[j]) {
+                arr[k++] = leftArr[i++];
+            }
+            else {
+                arr[k++] = rightArr[j++];
+            }
+        }
+        // Copy remaining elements from leftArr
+        while (i < leftArr.length) {
+            arr[k++] = leftArr[i++];
+        }
+        // Copy remaining elements from rightArr
+        while (j < rightArr.length) {
+            arr[k++] = rightArr[j++];
+        }
+    }
+    // {10, 5, -1, 4, 0, 6, 9, 0}
+    public void mergeSort(int[] arr, int left, int right) {
+        if (left > right) return;
+
+        int mid = left+(right-left)/2;
+        // Recursive calls
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid+1, right);
+
+        // Merge the sorted halves
+        merge(arr, left, mid, right);
+    }
 }
