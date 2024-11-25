@@ -454,6 +454,8 @@ public class OrderedArray implements Color {
     }
 
     public void selectionSort(int[] arr) {
+        // Time Complexity: O(n^2)
+        // Space Complexity: O(1)
         for (int i=0; i < arr.length; i++) {
             int min = i; // assume the current element is the minimum.
             for (int j=i+1; j < arr.length; j++) {
@@ -462,9 +464,12 @@ public class OrderedArray implements Color {
                     min = j;
             }
             // swap current with minimum element
-            int temp = arr[i];
-            arr[i] = arr[min];
-            arr[min] = temp;
+            // skip unnecessary swaps
+            if (min != i) {
+                int temp = arr[i];
+                arr[i] = arr[min];
+                arr[min] = temp;
+            }
         }
     }
 }
