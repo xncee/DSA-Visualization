@@ -47,8 +47,10 @@ public class DLL {
         n.prev = current;
         current.next = n;
 
-        if (current == tail)
+        if (current == tail) {
+            tail.next.prev = n;
             tail = n;
+        }
     }
 
     public void delFirst() {
