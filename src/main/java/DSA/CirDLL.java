@@ -13,27 +13,31 @@ public class CirDLL {
 
     public void addFirst(int e) {
         DNode n = new DNode(e);
-        if (!isEmpty())
-            tail.next = n;
-        else
+        if (isEmpty()) {
+            n.next = n;
+            n.prev = n;
             tail = n;
-
-        n.prev = tail;
+        }
+        else {
+            n.next = tail.next;
+            n.prev = tail;
+            tail.next.prev = n;
+            tail.next = n;
+        }
     }
 
     public void addLast(int e) {
         DNode n = new DNode(e);
-        if (!isEmpty()) {
-            n.prev = tail;
-            n.next = tail.next;
-            tail.next.prev = n;
-            tail.next = n;
-        }
-        else {
+        if (isEmpty()) {
             n.next = n;
             n.prev = n;
         }
-
+        else {
+            n.next = tail.next;
+            n.prev = tail;
+            tail.next.prev = n;
+            tail.next = n;
+        }
         tail = n;
     }
 
@@ -43,7 +47,6 @@ public class CirDLL {
             return;
         }
 
-        DNode n = new DNode(e);
         DNode current = tail.next;
         do {
             if (current.data == x) {
@@ -57,13 +60,16 @@ public class CirDLL {
             System.out.println("element "+x+" was not found!");
             return;
         }
+
+        DNode n = new DNode(e);
         n.next = current.next;
         n.prev = current;
+        current.next.prev = n;
+        current.next = n;
+
         if (current == tail) {
-            tail.next.prev = n;
             tail = n;
         }
-        current.next = n;
     }
 
     public void delFirst() {
