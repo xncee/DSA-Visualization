@@ -129,4 +129,57 @@ public class CirDLL {
         current.prev.next = current.next;
         current.next.prev = current.prev;
     }
+
+    public int length() {
+        if (isEmpty()) return 0;
+
+        DNode current = tail;
+        int count = 0;
+
+        do {
+            count++;
+            current = current.next;
+        }
+        while (current != tail);
+
+        return count;
+    }
+
+    public boolean search(int e) {
+        if (isEmpty()) {
+            return false;
+        }
+
+        DNode current = tail.next;
+        do {
+            if (current.data == e) {
+                return true;
+            }
+            current = current.next;
+        }
+        while (current != tail.next);
+
+        return false;
+    }
+
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("List is empty!");
+            return;
+        }
+
+        DNode current = tail.next;
+        System.out.print("head -> ");
+
+        do {
+            System.out.print(current.data);
+            if (current != tail) {
+                System.out.print(" <--> ");
+            }
+            current = current.next;
+        }
+        while (current != tail.next);
+
+        System.out.println(" -> tail");
+    }
 }
